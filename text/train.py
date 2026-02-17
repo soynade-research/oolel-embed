@@ -35,7 +35,6 @@ def train_model(model_path, dataset_path, output_dir):
         lambda x: {"query": f"{PROMPTS[x['task_type']]} {x['query']}"},
         num_proc=32)
     print(dataset[0])
-    # dataset = dataset.add_column("id", list(range(len(dataset))))
     dataset = dataset.rename_columns({"query": "anchor", "document": "positive"})
     dataset = dataset.train_test_split(test_size=0.005)
     train_dataset = dataset["train"]

@@ -1,0 +1,19 @@
+python train.py \
+        --dataset_name="$DATA" \
+        --speech_model_name_or_path="soynade-research/Wolof-HuBERT-CTC" \
+        --output_dir="$OUTPUT_DIR" \
+        --overwrite_output_dir \
+        --num_train_epochs="1" \
+        --per_device_train_batch_size="16" \
+        --learning_rate="3e-4" \
+        --warmup_ratio="0.03" \
+        --text_column_name="text" \
+        --save_steps="200" \
+        --save_total_limit="3" \
+        --layerdrop="0" \
+        --text_model_path_or_name="soynade-research/Oolel-Embed/text" \
+        --logging_steps="10" \
+        --do_train \
+        --loss="contrastive" \
+        --training_mode="lf" \
+        --freeze_speech_encoder
