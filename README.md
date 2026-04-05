@@ -1,3 +1,4 @@
+**!!WORK IN PROGRESS!!** We are still cleaning, uploading and documenting the code
 # Oolel-Embed
 
 **Oolel-Embed** is a cross-lingual speech and text embedding model developed for Wolof and French. It enables the direct retrieval of French text documents from Wolof speech queries without relying on intermediate automatic speech recognition and translation pipelines. It utilizes **Matryoshka Representation Learning** to produce embeddings at multiple flexible dimensions, allowing users to balance retrieval performance with computational and storage costs.
