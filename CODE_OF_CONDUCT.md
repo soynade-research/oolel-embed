@@ -1,9 +1,6 @@
 # Code of Conduct
 
-## Our Commitment
-Soynade Research is committed to providing a welcoming, inclusive, and harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity, experience level, nationality, personal appearance, race, religion, or sexual identity.
-
-## Our Standards
+## Standards
 
 ### Expected Behavior
 - Be respectful and considerate
@@ -47,6 +44,3 @@ This Code of Conduct applies in all project spaces (GitHub, Discord, email, even
 
 ## Attribution
 This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org/version/3/0/code_of_conduct/), version 3.
-
----
-Questions? Email contact@soynade.ai
