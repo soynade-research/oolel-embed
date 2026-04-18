@@ -14,3 +14,7 @@ This repository provides the training and evaluation pipelines for both text-onl
 - [Model](https://huggingface.co/soynade-research/Oolel-Embed)
 
 - [Evaluation Datasets](https://huggingface.co/collections/soynade-research/kallaama-retrieval-eval)
+
+- [Wolof-French text retrieval training dataset]()
+  
+- [Wolof-French text-speech retrieval training dataset]()
