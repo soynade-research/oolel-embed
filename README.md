@@ -8,6 +8,12 @@ This repository provides the training and evaluation pipelines for both text-onl
 - transcription retrieval
 - speech intent detection.
 
+# The repo
+- `speech_text` folder contains the speech-text retrieval model training and evaluation scripts
+
+- `text` folder contains the text-only (Qwen3-Embedding) finetuning code
+
+- `speech` contains the speech data processing code
 # Resources
 - [Paper](https://arxiv.org/pdf/2602.19991)
 
