@@ -24,3 +24,13 @@ This repository provides the training and evaluation pipelines for both text-onl
 - [Wolof-French text retrieval training dataset]()
   
 - [Wolof-French text-speech retrieval training dataset]()
+
+## Unit tests
+
+The unit suite covers deterministic preprocessing and retrieval metrics. It does
+not assert model outputs or download model weights, datasets, or GPU dependencies.
+
+```bash
+python -m pip install numpy pytest pytest-cov
+pytest
+```

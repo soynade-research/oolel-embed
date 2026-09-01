@@ -10,6 +10,8 @@ import torch.nn.functional as F
 from datasets import load_dataset, load_from_disk
 from transformers import AutoTokenizer, AutoModel
 
+from ..processing import build_relevant_docs, compute_dcg_at_k, filter_error_documents
+
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -98,14 +100,6 @@ class NLLBLLM2VecWrapper:
         return all_embeddings
 
 
-def compute_dcg_at_k(relevances, k):
-    """Compute Discounted Cumulative Gain at k - matches official implementation."""
-    dcg = 0
-    for i in range(min(len(relevances), k)):
-        dcg += relevances[i] / np.log2(i + 2)  # +2 as we start our idx at 0
-    return dcg
-
-
 def compute_metrics(similarity_scores: torch.Tensor, relevant_docs: Dict[str, Set[str]], 
                    query_ids: list, corpus_ids: list, k_values: list = [5, 10]):
     """
@@ -187,23 +181,12 @@ def run_retrieval_evaluation(args, model: NLLBLLM2VecWrapper):
     corpus_texts = corpus_ds["text"]
     
     # Filter out corpus errors
-    valid_corpus_indices = [i for i, text in enumerate(corpus_texts) 
-                           if "error" not in text.strip().lower()]
-    corpus_ids = [corpus_ids[i] for i in valid_corpus_indices]
-    corpus_texts = [corpus_texts[i] for i in valid_corpus_indices]
+    corpus_ids, corpus_texts = filter_error_documents(corpus_ids, corpus_texts)
     
     logging.info(f"Filtered corpus from {len(corpus_ds)} to {len(corpus_texts)} documents (removed errors).")
     
     # Prepare relevant docs
-    relevant_docs = {}
-    corpus_id_set = set(corpus_ids)
-    for row in qrels_ds:
-        qid, cid = row["query-id"], row["corpus-id"]
-        if cid not in corpus_id_set:
-            continue
-        if qid not in relevant_docs:
-            relevant_docs[qid] = set()
-        relevant_docs[qid].add(cid)
+    relevant_docs = build_relevant_docs(qrels_ds, corpus_ids)
 
     logging.info(f"Loaded {len(query_ids)} queries, {len(corpus_ids)} corpus documents, {len(relevant_docs)} query-document relationships.")
 
