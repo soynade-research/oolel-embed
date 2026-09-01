@@ -1,5 +1,6 @@
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 addopts = "-ra --strict-markers --cov=speech_text.processing --cov-report=term-missing"
 
 [tool.coverage.run]
