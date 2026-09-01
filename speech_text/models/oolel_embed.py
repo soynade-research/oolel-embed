@@ -9,7 +9,8 @@ from transformers import HubertPreTrainedModel, Wav2Vec2Processor, HubertModel, 
 import torchaudio
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.models import Module
-from pathlib import Path
+
+from ..processing import is_audio_input
 
 class HubertMatryoshka(HubertPreTrainedModel):
     def __init__(self, config, dims: list[int], mode: str="clip"):
@@ -137,8 +138,7 @@ class OolelEmbed(Module):
         return input_values
 
     def tokenize(self, inputs, **kwargs) -> dict[str, torch.Tensor]:
-        suffix = Path(inputs).suffix if not isinstance(inputs, list) else Path(inputs[0]).suffix
-        if suffix in {".wav", ".flac", ".mp3"}:
+        if is_audio_input(inputs):
             return self.load_audio(inputs)
         return self.tokenize_fn(inputs)
 
